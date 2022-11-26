@@ -95,6 +95,7 @@
                                 :class="(message.status === 'sent') ? 'sent align-self-end' : 'received align-self-start' ">
                                 {{message.message}}
                                 <span class="data-absolute">{{message.date}}</span>
+                                <span @click="deleteMessage(index)" class="arrow-absolute"><i class="fa-solid fa-chevron-down"></i></span>
                             </div>
 
 

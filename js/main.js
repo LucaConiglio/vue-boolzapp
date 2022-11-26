@@ -177,18 +177,36 @@ createApp({
           
           ],
 
+          rispostaMessaggio : [
+            { 
+              risposta : "Buon giorno a te, ti sei ripreso dopo ieri sera?"
+            },
+            { 
+              risposta : 'Non preoccuparti fa niente'
+            },
+            {
+              risposta : 'Chi sei? forse hai sbagliato chat!'
+            },
+            {
+              risposta : 'Dai stavo scherzando, dimmi tutto.'
+            },
+            {
+              risposta : 'sono a lavoro non posso chattare ci sentiamo più tardi, ti scrivo io quando finisco'
+            },
+          ],
+
           currentIndex : 0,
           newMessage : '',
           createdOra : new Date().toLocaleTimeString(),
           createdData : new Date().toLocaleDateString(),
-          dataVisible : true,
+         // dataVisible : true,
 };
   },
   methods : {
 
     onChatClick (index){
         this.currentIndex = index;
-        this.dataVisible = false;
+        //this.dataVisible = false;
     },
 
     onInputMessage (currentIndex) {
@@ -202,7 +220,7 @@ createApp({
         
         this.users[currentIndex].messages.push({
           date : ( this.createdData + ' ' + this.createdOra ),
-          message : 'Va benissimo.... OK',
+          message : this.rispostaMessaggio[this.getRandom(0 , 4)].risposta,
           status : 'received'
         });
         
@@ -211,7 +229,15 @@ createApp({
       this.newMessage= '';
 
     },
+      getRandom(min, max) {
+      const random = Math.floor(Math.random() * (max - min + 1) + min);
+      return random;
+    },
+    //deleteMessage(index){
 
+
+    //  this.users[this.currentIndex].messages[index].splice(index, 1);
+    //}
 
 
 
