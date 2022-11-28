@@ -49,7 +49,7 @@
                         <!-- riquadro per cercare le chat -->
                         <label class="px-1 py-1 label-cerca d-flex align-items-center">
                             <a class="px-4 text-secondary" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-                            <input class="label-cerca" type="text" placeholder="Cerca o inizia una nuova chat">
+                            <input class="label-cerca" type="text" placeholder="Cerca o inizia una nuova chat" @keyup="searchUser" v-model="searchText">
                         </label>
                         <!-- contenitore delle chat -->
                         <div class="flex-fill overflow-auto">
@@ -57,18 +57,19 @@
                                 <!-- singola chat da fare con v-for -->
                                 <!--******ciclo for*******-->
                                 <label class="label-cerca py-2 ps-3 pe-1 d-flex align-item
-                                    justify-content-between" v-for="(user , index) in users" @click="onChatClick(index)"
+                                    justify-content-between" v-for="(user , index) in searchUser" @click="onChatClick(index)"
                                     :class="(index === currentIndex) ? 'active' : '' ">
                                     <div class="d-flex">
                                         <div class="me-3">
                                             <img class="immagine-avatars" :src="user.avatar" alt="">
                                         </div>
                                         <div class="fw-semibold">{{user.name}}<br>
-                                            <small class="text-secondary">ultimo messaggio inviato</small>
+                                            <small v-if="(index === currentIndex )" class="text-secondary">ultimo messaggio inviato alle ore {{createdOra}}</small>
+                                            <small v-else class="text-secondary">ultimo messaggio inviato alle ore 12</small>
                                         </div>
                                     </div>
-                                    <div v-if="dataVisible" class="fs-6">12:00</div>
-                                    <div v-else class="fs-6">12:00<!--{{createdOra}}--></div>
+                                    <div v-if="(index === currentIndex )" class="fs-6">{{createdOra}}</div>
+                                    <div v-else class="fs-6">12:00</div>
                                 </label>
                             </div>
                         </div>
@@ -77,12 +78,18 @@
                     <div class="flex-fill d-flex flex-column ">
                         <!-- chat attuale -->
                         <div class="py-2 ps-3 pe-4 d-flex justify-content-between">
-                            <div class="d-flex align-items-center">
+                            <div v-if="(currentIndex !== -1)" class="d-flex align-items-center">
                                 <img class="immagine-avatar-principale" :src="users[currentIndex].avatar" alt="">
                                 <div class="fw-semibold ms-2">{{users[currentIndex].name}}<br>
                                     <small class="text-secondary">Ultimo accesso oggi alle 12:00</small>
                                 </div>
                             </div>
+                            <!-- <div v-else class="d-flex align-items-center">
+                                <span class="immagine-avatar-principale"> <i class="fa-solid fa-user"></i></span>
+                                <div class="fw-semibold ms-2"><br>
+                                    <small class="text-secondary">indefinito</small>
+                                </div>
+                            </div> -->
                             <div class="d-flex align-items-center gap-3 ">
                                 <a class="fs-5 text-secondary" href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
                                 <a class="fs-5 text-secondary" href="#"><i class="fa-solid fa-paperclip"></i></a>
@@ -91,11 +98,15 @@
                         </div>
                         <div class="sfondo-chat flex-fill d-flex flex-column">
 
-                            <div v-for="(message) in users[currentIndex].messages"
+                            <div v-for="(message, index) in users[currentIndex].messages" key="message"
                                 :class="(message.status === 'sent') ? 'sent align-self-end' : 'received align-self-start' ">
                                 {{message.message}}
                                 <span class="data-absolute">{{message.date}}</span>
-                                <span @click="deleteMessage(index)" class="arrow-absolute"><i class="fa-solid fa-chevron-down"></i></span>
+                                <span @click="clickchev(index)"  class="arrow-absolute"><i class="fa-solid fa-chevron-down"></i></span>
+                                <div v-if="(currentMessage === index)" class="position-relative-delete">Cancellare il messaggio? <br>
+                                    <button class="button-delete-message" @click="deleteMessage(index)" >Yes</button>
+                                    <button @click="closechev" class="button-delete-message">No</button>
+                                </div>
                             </div>
 
 

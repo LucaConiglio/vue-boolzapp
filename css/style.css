@@ -98,8 +98,25 @@ a{
 .arrow-absolute{
     position: absolute;
     top: 2px;
-    right: 3px;
+    right: 5px;
     font-size: small;
     color: rgb(188, 188, 188);
+    background-color: transparent;
+    border: none;
+}
+.position-relative-delete{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 2;
+    background-color: white;
+    padding: 0 0.5rem 0.5rem 0.5rem;
+
+}
+.button-delete-message{
+    border: 1px solid gray;
+    border-radius: 30%;
+    padding: 0 0.2rem;
+    margin-right: 1rem;
 }
 

@@ -195,18 +195,21 @@ createApp({
             },
           ],
 
-          currentIndex : 0,
-          newMessage : '',
-          createdOra : new Date().toLocaleTimeString(),
-          createdData : new Date().toLocaleDateString(),
-         // dataVisible : true,
+        currentIndex : 0,
+        newMessage : '',
+        createdOra : new Date().toLocaleTimeString(),
+        createdData : new Date().toLocaleDateString(),
+        dataVisible :  this.currentIndex,
+        currentMessage : -1,
+        searchText : "",
+        chev : false,
 };
   },
   methods : {
 
     onChatClick (index){
         this.currentIndex = index;
-        //this.dataVisible = false;
+        
     },
 
     onInputMessage (currentIndex) {
@@ -233,11 +236,31 @@ createApp({
       const random = Math.floor(Math.random() * (max - min + 1) + min);
       return random;
     },
-    //deleteMessage(index){
+    deleteMessage(indexDelete){
 
+        this.users[this.currentIndex].messages.splice(indexDelete, 1);
+        this.chev = false;
+        this.currentMessage = -1;
+      
+    },
+    clickchev(index) {
+      //const newChev = this.users[this.currentIndex].messages
+      this.currentMessage = index;
 
-    //  this.users[this.currentIndex].messages[index].splice(index, 1);
-    //}
+      if (this.currentMessage === index) {
+        this.chev = true
+      }
+      
+
+    },
+    closechev(){
+      this.chev = false;
+      this.currentMessage = -1;
+    },
+    leaveMouse() {
+      this.chev = false
+    },
+    
 
 
 
@@ -246,5 +269,15 @@ createApp({
   mounted () {
     
     
+  },
+  computed : {
+    searchUser () {
+      
+      return this.users.filter(user => {
+
+        return user.name.toLowerCase().includes(this.searchText.toLowerCase())
+        
+      });
+    }
   }
 }).mount("#app");
