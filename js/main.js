@@ -279,7 +279,7 @@ createApp({
   },
   computed : {
     searchUser () {
-      
+      this.currentIndex = -1
       return this.users.filter(user => {
 
         return user.name.toLowerCase().includes(this.searchText.toLowerCase())
