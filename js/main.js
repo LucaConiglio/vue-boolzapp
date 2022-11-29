@@ -213,6 +213,9 @@ createApp({
     },
 
     onInputMessage (currentIndex) {
+      if (this.newMessage !== "") {
+
+      
       this.users[currentIndex].messages.push({
         date : (this.createdData+ ' ' + this.createdOra ),
         message : this.newMessage,
@@ -230,6 +233,9 @@ createApp({
       }, 1500);
 
       this.newMessage= '';
+    } else {
+      return
+    }
 
     },
       getRandom(min, max) {
