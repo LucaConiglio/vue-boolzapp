@@ -215,27 +215,25 @@ createApp({
     onInputMessage (currentIndex) {
       if (this.newMessage !== "") {
 
-      
-      this.users[currentIndex].messages.push({
-        date : (this.createdData+ ' ' + this.createdOra ),
-        message : this.newMessage,
-        status : 'sent'
-      });
-
-      setTimeout(() => {
         
         this.users[currentIndex].messages.push({
-          date : ( this.createdData + ' ' + this.createdOra ),
-          message : this.rispostaMessaggio[this.getRandom(0 , 4)].risposta,
-          status : 'received'
+          date : (this.createdData+ ' ' + new Date().toLocaleTimeString() ),
+          message : this.newMessage,
+          status : 'sent'
         });
-        
-      }, 1500);
 
-      this.newMessage= '';
-    } else {
-      return
-    }
+        setTimeout(() => {
+          
+          this.users[currentIndex].messages.push({
+            date : ( this.createdData + ' ' + new Date().toLocaleTimeString() ),
+            message : this.rispostaMessaggio[this.getRandom(0 , 4)].risposta,
+            status : 'received'
+          });
+          
+        }, 1500);
+
+        this.newMessage= '';
+      }
 
     },
       getRandom(min, max) {
@@ -266,7 +264,9 @@ createApp({
     leaveMouse() {
       this.chev = false
     },
-    
+    changeOra (orarioNow) {
+      orarioNow = new Date().toLocaleTimeString()
+    }
 
 
 
