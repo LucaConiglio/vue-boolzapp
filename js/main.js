@@ -195,7 +195,7 @@ createApp({
             },
           ],
 
-        currentIndex : 0,
+        currentIndex : -1,
         newMessage : '',
         createdOra : new Date().toLocaleTimeString(),
         createdData : new Date().toLocaleDateString(),
