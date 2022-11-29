@@ -103,7 +103,7 @@
                                 {{message.message}}
                                 <span class="data-absolute">{{message.date}}</span>
                                 <span @click="clickchev(index)"  class="arrow-absolute"><i class="fa-solid fa-chevron-down"></i></span>
-                                <div v-if="(currentMessage === index)" class="position-relative-delete">Cancellare il messaggio? <br>
+                                <div v-if="(currentMessage === index)" class="position-relative-delete" @mouseleave="closechev">Cancellare il messaggio? <br>
                                     <button class="button-delete-message" @click="deleteMessage(index)" >Yes</button>
                                     <button @click="closechev" class="button-delete-message">No</button>
                                 </div>
